@@ -1,0 +1,39 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import CardGrid from '../../components/CardGrid.astro';
+import CaseStudyCard from '../../components/CaseStudyCard.astro';
+import { SITE } from '../../lib/site';
+
+const caseStudies = (await getCollection('case-studies')).sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout
+  title="施工事例"
+  description={`${SITE.name}がこれまでに手がけた施工事例をご紹介します。`}
+  breadcrumbs={[
+    { name: 'トップ', path: '/' },
+    { name: '施工事例', path: '/works/' },
+  ]}
+>
+  <header class="page-header">
+    <div class="container">
+      <SectionHeading eyebrow="Works" title="施工事例" as="h1" lead="実際に手がけた住まいをご紹介します。" />
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container">
+      <CardGrid>
+        {caseStudies.map((entry) => <CaseStudyCard entry={entry} />)}
+      </CardGrid>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-header {
+    padding-top: var(--space-lg);
+  }
+</style>

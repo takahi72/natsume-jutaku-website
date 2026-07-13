@@ -1,0 +1,69 @@
+/*
+  デザイントークン。
+  本物のブランドカラー・ロゴが届いたら --color-accent 系だけを書き換えれば
+  サイト全体に反映される。
+*/
+:root {
+  /* ニュートラル */
+  --color-bg: #faf9f6;
+  --color-bg-alt: #f1efe9;
+  --color-surface: #ffffff;
+  --color-text: #1a1a1a;
+  --color-text-muted: #62615c;
+  --color-border: #e2e0d8;
+
+  /* アクセント(仮:ネイビー。ブランドカラー確定後に差し替え) */
+  --color-accent: #1c2b4a;
+  --color-accent-hover: #101c33;
+  --color-accent-soft: #e9ecf3;
+  --color-on-accent: #ffffff;
+
+  /* フォント */
+  --font-sans:
+    'Noto Sans JP', -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Yu Gothic', system-ui,
+    sans-serif;
+  --font-serif: 'Noto Serif JP', 'Hiragino Mincho ProN', serif;
+
+  /* タイプスケール */
+  --fs-xs: 0.8125rem;
+  --fs-sm: 0.9375rem;
+  --fs-base: 1rem;
+  --fs-md: 1.125rem;
+  --fs-lg: clamp(1.25rem, 1.15rem + 0.5vw, 1.5rem);
+  --fs-xl: clamp(1.5rem, 1.25rem + 1vw, 2rem);
+  --fs-2xl: clamp(1.875rem, 1.4rem + 1.8vw, 2.75rem);
+  --fs-3xl: clamp(2.25rem, 1.5rem + 3vw, 3.75rem);
+  --leading-body: 1.85;
+  --leading-heading: 1.5;
+  --tracking-heading: 0.04em;
+
+  /* 余白 */
+  --space-3xs: 0.25rem;
+  --space-2xs: 0.5rem;
+  --space-xs: 0.75rem;
+  --space-sm: 1.25rem;
+  --space-md: 2rem;
+  --space-lg: 3rem;
+  --space-xl: 5rem;
+  --space-2xl: 7.5rem;
+
+  /* レイアウト */
+  --content-width: 1240px;
+  --content-width-narrow: 760px;
+  --gutter: 1.5rem;
+  --radius-sm: 2px;
+  --radius-md: 4px;
+
+  /* モーション */
+  --transition-fast: 160ms ease;
+  --transition: 260ms ease;
+
+  /* 影(控えめに使用) */
+  --shadow-card: 0 1px 2px rgba(26, 26, 26, 0.04), 0 8px 24px rgba(26, 26, 26, 0.06);
+}
+
+@media (min-width: 768px) {
+  :root {
+    --gutter: 2.5rem;
+  }
+}

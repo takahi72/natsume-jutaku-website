@@ -1,0 +1,94 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import { SITE } from '../lib/site';
+
+const rows = [
+  { label: '会社名', value: SITE.name },
+  { label: '代表者', value: SITE.representative },
+  { label: '所在地', value: `〒${SITE.postalCode} ${SITE.prefecture}${SITE.city}${SITE.addressRest}` },
+  { label: '電話番号', value: SITE.tel },
+  { label: 'メールアドレス', value: SITE.email },
+  { label: '設立', value: SITE.founded },
+  { label: '建設業許可番号', value: SITE.licenseNumber },
+  { label: '事業内容', value: '注文住宅の設計・施工、リフォーム' },
+  { label: '営業時間', value: SITE.businessHours },
+  { label: '定休日', value: SITE.closedDays },
+  { label: '対応エリア', value: SITE.serviceArea },
+];
+---
+
+<BaseLayout
+  title="会社概要"
+  description={`${SITE.name}の会社概要です。所在地・代表者・事業内容などをご紹介します。`}
+  breadcrumbs={[
+    { name: 'トップ', path: '/' },
+    { name: '会社概要', path: '/company/' },
+  ]}
+>
+  <header class="page-header">
+    <div class="container">
+      <SectionHeading eyebrow="Company" title="会社概要" as="h1" />
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container container--narrow">
+      <table class="company-table">
+        <tbody>
+          {
+            rows.map((row) => (
+              <tr>
+                <th scope="row">{row.label}</th>
+                <td>{row.value}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-header {
+    padding-top: var(--space-lg);
+  }
+
+  .company-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .company-table tr {
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .company-table th,
+  .company-table td {
+    text-align: left;
+    padding: var(--space-sm) var(--space-2xs);
+    vertical-align: top;
+  }
+
+  .company-table th {
+    width: 35%;
+    color: var(--color-text-muted);
+    font-weight: 500;
+    font-size: var(--fs-sm);
+  }
+
+  @media (max-width: 480px) {
+    .company-table th,
+    .company-table td {
+      display: block;
+      width: 100%;
+      padding-block: var(--space-3xs);
+    }
+
+    .company-table tr {
+      display: block;
+      padding-block: var(--space-xs);
+    }
+  }
+</style>

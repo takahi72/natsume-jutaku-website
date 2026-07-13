@@ -1,0 +1,4 @@
+/* 自己ホストの日本語Webフォント(外部リクエストなし)。使用ウェイトのみ読み込む。 */
+@import '@fontsource/noto-sans-jp/japanese-400.css';
+@import '@fontsource/noto-sans-jp/japanese-700.css';
+@import '@fontsource/noto-serif-jp/japanese-500.css';

@@ -1,0 +1,49 @@
+---
+import { SITE, withBase } from '../lib/site';
+
+interface BreadcrumbItem {
+  name: string;
+  path: string;
+}
+
+interface Props {
+  breadcrumbs?: BreadcrumbItem[];
+}
+
+const { breadcrumbs } = Astro.props;
+
+const businessSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'HomeAndConstructionBusiness',
+  name: SITE.name,
+  image: new URL(withBase('/og-image.jpg'), Astro.site).toString(),
+  telephone: SITE.tel,
+  email: SITE.email,
+  address: {
+    '@type': 'PostalAddress',
+    postalCode: SITE.postalCode,
+    addressRegion: SITE.prefecture,
+    addressLocality: SITE.city,
+    streetAddress: SITE.addressRest,
+    addressCountry: 'JP',
+  },
+  url: new URL(withBase('/'), Astro.site).toString(),
+  areaServed: SITE.serviceArea,
+};
+
+const breadcrumbSchema = breadcrumbs
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: breadcrumbs.map((item, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        name: item.name,
+        item: new URL(withBase(item.path), Astro.site).toString(),
+      })),
+    }
+  : null;
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(businessSchema)} />
+{breadcrumbSchema && <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />}

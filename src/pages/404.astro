@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { withBase } from '../lib/site';
+---
+
+<BaseLayout title="ページが見つかりません" description="お探しのページは見つかりませんでした。">
+  <section class="section not-found">
+    <div class="container">
+      <p class="eyebrow">404</p>
+      <h1>ページが見つかりません</h1>
+      <p class="lead">
+        お探しのページは移動または削除された可能性があります。URLをご確認いただくか、トップページからお探しください。
+      </p>
+      <a href={withBase('/')} class="btn btn--primary">トップページへ戻る</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .not-found {
+    text-align: center;
+    padding-block: var(--space-2xl);
+  }
+
+  .not-found .lead {
+    margin-inline: auto;
+  }
+
+  .not-found .btn {
+    margin-top: var(--space-md);
+  }
+</style>

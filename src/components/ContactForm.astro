@@ -1,0 +1,106 @@
+---
+import { SITE, withBase } from '../lib/site';
+---
+
+<form class="contact-form" action={SITE.formspreeEndpoint} method="POST">
+  <div class="field">
+    <label for="name">お名前 <span class="required">必須</span></label>
+    <input type="text" id="name" name="name" autocomplete="name" required />
+  </div>
+
+  <div class="field">
+    <label for="email">メールアドレス <span class="required">必須</span></label>
+    <input type="email" id="email" name="email" autocomplete="email" required />
+  </div>
+
+  <div class="field">
+    <label for="tel">電話番号</label>
+    <input type="tel" id="tel" name="tel" autocomplete="tel" />
+  </div>
+
+  <div class="field">
+    <label for="subject">お問い合わせ種別</label>
+    <select id="subject" name="subject">
+      <option>資料請求</option>
+      <option>家づくりの相談</option>
+      <option>施工事例について</option>
+      <option>その他</option>
+    </select>
+  </div>
+
+  <div class="field">
+    <label for="message">お問い合わせ内容 <span class="required">必須</span></label>
+    <textarea id="message" name="message" rows="6" required></textarea>
+  </div>
+
+  <p class="field field--consent">
+    送信いただいた内容は
+    <a href={withBase('/privacy/')}>プライバシーポリシー</a>
+    に基づき、お問い合わせへの対応目的で利用します。
+  </p>
+
+  <input type="text" name="_gotcha" class="visually-hidden" tabindex="-1" autocomplete="off" />
+
+  <button type="submit" class="btn btn--primary">送信する</button>
+</form>
+
+<style>
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    max-width: var(--content-width-narrow);
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3xs);
+  }
+
+  .field label {
+    font-size: var(--fs-sm);
+    font-weight: 700;
+  }
+
+  .required {
+    font-weight: 400;
+    font-size: var(--fs-xs);
+    color: var(--color-accent);
+    border: 1px solid var(--color-accent);
+    border-radius: var(--radius-sm);
+    padding: 0.05em 0.5em;
+    margin-left: var(--space-2xs);
+  }
+
+  input,
+  select,
+  textarea {
+    font: inherit;
+    padding: 0.75em 0.9em;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background: var(--color-surface);
+    color: var(--color-text);
+  }
+
+  input:focus,
+  select:focus,
+  textarea:focus {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 1px;
+  }
+
+  .field--consent {
+    font-size: var(--fs-xs);
+    color: var(--color-text-muted);
+  }
+
+  .field--consent a {
+    color: var(--color-accent);
+  }
+
+  .contact-form button {
+    align-self: flex-start;
+  }
+</style>

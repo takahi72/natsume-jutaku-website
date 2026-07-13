@@ -1,0 +1,118 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import CtaBanner from '../components/CtaBanner.astro';
+import { SITE, withBase } from '../lib/site';
+
+const sections = [
+  {
+    id: 'material',
+    label: '素材',
+    title: '自然に寄り添う、素材選び',
+    body: '木や漆喰など自然素材を活かしながら、住む人の健康と心地よさを大切にした素材選びを行っています。経年変化も楽しめる、長く愛せる質感にこだわります。',
+  },
+  {
+    id: 'performance',
+    label: '性能',
+    title: '暮らしを支える、確かな性能',
+    body: '断熱性能や耐震性能など、日々の暮らしの安心・快適さを支える住宅性能をしっかりと確保したうえで設計をご提案します。',
+  },
+  {
+    id: 'design',
+    label: 'デザイン',
+    title: '流行に左右されない、シンプルなデザイン',
+    body: '過度な装飾に頼らず、余白と光を活かしたシンプルなデザイン。住む人のライフスタイルに合わせて長く愛着を持てる空間をつくります。',
+  },
+  {
+    id: 'thoughts',
+    label: '想い',
+    title: 'ひとつひとつの暮らしに向き合う',
+    body: 'ご家族の数だけ、暮らし方があります。丁寧なヒアリングを重ね、暮らしの変化にも寄り添える住まいづくりを大切にしています。',
+  },
+];
+---
+
+<BaseLayout
+  title="家づくりのこだわり"
+  description={`${SITE.name}が大切にしている、素材・性能・デザイン・想いへのこだわりをご紹介します。`}
+  breadcrumbs={[
+    { name: 'トップ', path: '/' },
+    { name: '家づくりのこだわり', path: '/concept/' },
+  ]}
+>
+  <header class="page-header">
+    <div class="container">
+      <SectionHeading eyebrow="Concept" title="家づくりのこだわり" as="h1" />
+    </div>
+  </header>
+
+  <nav class="anchor-nav" aria-label="こだわり項目">
+    <ul class="container">
+      {sections.map((s) => <li><a href={`#${s.id}`}>{s.label}</a></li>)}
+    </ul>
+  </nav>
+
+  {
+    sections.map((s, index) => (
+      <section id={s.id} class={`section ${index % 2 === 1 ? 'section--alt' : ''}`}>
+        <div class="container container--narrow">
+          <p class="eyebrow">{s.label}</p>
+          <h2>{s.title}</h2>
+          <p class="lead">{s.body}</p>
+        </div>
+      </section>
+    ))
+  }
+
+  <div class="container">
+    <p class="concept-more">
+      <a href={withBase('/works/')}>実際の施工事例を見る →</a>
+    </p>
+  </div>
+
+  <CtaBanner />
+</BaseLayout>
+
+<style>
+  .page-header {
+    padding-top: var(--space-lg);
+  }
+
+  .anchor-nav {
+    position: sticky;
+    top: 64px;
+    z-index: 10;
+    background: var(--color-bg);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .anchor-nav ul {
+    display: flex;
+    gap: var(--space-md);
+    overflow-x: auto;
+    padding-block: var(--space-xs);
+  }
+
+  .anchor-nav a {
+    text-decoration: none;
+    font-size: var(--fs-sm);
+    font-weight: 700;
+    white-space: nowrap;
+    color: var(--color-text-muted);
+  }
+
+  .anchor-nav a:hover {
+    color: var(--color-accent);
+  }
+
+  .concept-more {
+    text-align: center;
+    padding-block: var(--space-lg);
+  }
+
+  .concept-more a {
+    text-decoration: none;
+    font-weight: 700;
+    color: var(--color-accent);
+  }
+</style>

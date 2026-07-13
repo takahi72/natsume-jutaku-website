@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-labelledby="t">
+  <title id="t">リビング写真 準備中</title>
+  <rect width="1600" height="1000" fill="#EFEDE6"/>
+  <rect x="1.5" y="1.5" width="1597" height="997" fill="none" stroke="#E2E0D8" stroke-width="3"/>
+  <g transform="translate(800,420)" stroke="#B9B6AA" stroke-width="6" fill="none" stroke-linejoin="round" stroke-linecap="round">
+    <rect x="-110" y="-40" width="220" height="90" rx="6"/>
+    <path d="M-110,50 V80 M110,50 V80 M-90,-40 V-70 H90 V-40"/>
+  </g>
+  <text x="800" y="565" text-anchor="middle" font-family="'Noto Sans JP', 'Hiragino Sans', sans-serif" font-size="30" fill="#8B8A82" letter-spacing="3">リビング写真 準備中</text>
+</svg>

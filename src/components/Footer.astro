@@ -1,0 +1,107 @@
+---
+import Logo from './Logo.astro';
+import { SITE, NAV_ITEMS, CONTACT_ITEM, withBase } from '../lib/site';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <div class="footer__brand">
+      <Logo />
+      <p class="footer__address">
+        〒{SITE.postalCode}　{SITE.prefecture}{SITE.city}{SITE.addressRest}<br />
+        TEL: <a href={SITE.telHref}>{SITE.tel}</a>
+      </p>
+    </div>
+
+    <nav class="footer__nav" aria-label="フッターナビゲーション">
+      <ul>
+        {NAV_ITEMS.map((item) => (
+          <li><a href={withBase(item.href)}>{item.label}</a></li>
+        ))}
+        <li><a href={withBase(CONTACT_ITEM.href)}>{CONTACT_ITEM.label}</a></li>
+        <li><a href={withBase('/privacy/')}>プライバシーポリシー</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <div class="footer__bottom">
+    <p>&copy; {year} {SITE.name}</p>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--color-text);
+    color: var(--color-bg);
+    margin-top: var(--space-2xl);
+  }
+
+  .footer__inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+    padding-block: var(--space-xl);
+  }
+
+  .footer :global(.logo) {
+    color: var(--color-bg);
+  }
+
+  .footer :global(.logo__mark) {
+    color: var(--color-bg);
+  }
+
+  .footer :global(.logo__en) {
+    color: rgba(250, 249, 246, 0.6);
+  }
+
+  .footer__address {
+    margin-top: var(--space-sm);
+    font-size: var(--fs-sm);
+    color: rgba(250, 249, 246, 0.75);
+    line-height: 1.9;
+  }
+
+  .footer__address a {
+    color: var(--color-bg);
+    text-decoration: none;
+  }
+
+  .footer__nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm) var(--space-md);
+  }
+
+  .footer__nav a {
+    text-decoration: none;
+    font-size: var(--fs-sm);
+    color: rgba(250, 249, 246, 0.85);
+  }
+
+  .footer__nav a:hover {
+    color: var(--color-bg);
+  }
+
+  .footer__bottom {
+    border-top: 1px solid rgba(250, 249, 246, 0.15);
+    padding-block: var(--space-sm);
+  }
+
+  .footer__bottom p {
+    margin: 0;
+    text-align: center;
+    font-size: var(--fs-xs);
+    color: rgba(250, 249, 246, 0.6);
+  }
+
+  @media (min-width: 768px) {
+    .footer__inner {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+  }
+</style>

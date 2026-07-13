@@ -1,0 +1,130 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import CardGrid from '../components/CardGrid.astro';
+import CaseStudyCard from '../components/CaseStudyCard.astro';
+import TestimonialCard from '../components/TestimonialCard.astro';
+import CtaBanner from '../components/CtaBanner.astro';
+import { SITE, withBase } from '../lib/site';
+
+const allCaseStudies = await getCollection('case-studies');
+const featuredCaseStudies = allCaseStudies
+  .filter((entry) => entry.data.featured)
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, 3);
+
+const allTestimonials = (await getCollection('testimonials')).sort((a, b) => a.data.order - b.data.order).slice(0, 2);
+
+const commitments = [
+  {
+    title: '素材へのこだわり',
+    body: '自然素材を活かしながら、住む人の健康と快適さを大切にした家づくりをご提案します。',
+  },
+  {
+    title: '性能・省エネ設計',
+    body: '断熱性能や耐震性など、暮らしの安心につながる住宅性能をしっかりと確保します。',
+  },
+  {
+    title: 'シンプルで飽きのこないデザイン',
+    body: '流行に左右されすぎない、長く愛せるデザインと間取りをともに考えます。',
+  },
+  {
+    title: '完成後も続くサポート',
+    body: '引き渡し後の点検・アフターサポート体制で、長く安心して暮らせる住まいを支えます。',
+  },
+];
+---
+
+<BaseLayout
+  title={`${SITE.catchCopy}なら${SITE.name}`}
+  description={`${SITE.serviceArea}で注文住宅・工務店をお探しなら${SITE.name}へ。素材と性能にこだわった家づくりで、暮らしに寄り添う住まいをご提案します。`}
+>
+  <Hero
+    eyebrow={SITE.catchCopy}
+    title={SITE.tagline}
+    lead={`${SITE.serviceArea}を拠点に、ひとつひとつの暮らしに向き合う家づくりを行っています。`}
+    primaryCta={{ href: '/contact/', label: 'お問い合わせ' }}
+    secondaryCta={{ href: '/works/', label: '施工事例を見る' }}
+  />
+
+  <section class="section">
+    <div class="container">
+      <SectionHeading eyebrow="Concept" title="家づくりのこだわり" align="center" />
+      <div class="commitments">
+        {
+          commitments.map((item) => (
+            <div class="commitment-card">
+              <h3>{item.title}</h3>
+              <p>{item.body}</p>
+            </div>
+          ))
+        }
+      </div>
+      <p class="commitments__more">
+        <a href={withBase('/concept/')}>こだわりを詳しく見る →</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <SectionHeading eyebrow="Works" title="施工事例" lead="実際に手がけた住まいの一部をご紹介します。" />
+      <CardGrid>
+        {featuredCaseStudies.map((entry) => <CaseStudyCard entry={entry} />)}
+      </CardGrid>
+      <p class="commitments__more">
+        <a href={withBase('/works/')}>施工事例をもっと見る →</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeading eyebrow="Voice" title="お客様の声" />
+      <CardGrid minColumnWidth="320px">
+        {allTestimonials.map((entry) => <TestimonialCard entry={entry} />)}
+      </CardGrid>
+    </div>
+  </section>
+
+  <CtaBanner />
+</BaseLayout>
+
+<style>
+  .commitments {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--space-md);
+  }
+
+  .commitment-card {
+    padding: var(--space-md);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+  }
+
+  .commitment-card h3 {
+    font-size: var(--fs-md);
+    margin-bottom: var(--space-2xs);
+  }
+
+  .commitment-card p {
+    font-size: var(--fs-sm);
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+
+  .commitments__more {
+    margin-top: var(--space-md);
+    text-align: center;
+  }
+
+  .commitments__more a {
+    text-decoration: none;
+    font-weight: 700;
+    color: var(--color-accent);
+  }
+</style>

@@ -1,0 +1,74 @@
+---
+import { SITE, withBase } from '../lib/site';
+
+interface Props {
+  title?: string;
+  lead?: string;
+}
+
+const {
+  title = '家づくりの、まずはご相談から。',
+  lead = 'お問い合わせ・資料請求はお気軽にどうぞ。専門スタッフが丁寧にお応えします。',
+} = Astro.props;
+---
+
+<section class="cta-banner">
+  <div class="container cta-banner__inner">
+    <div>
+      <h2>{title}</h2>
+      <p>{lead}</p>
+    </div>
+    <div class="cta-banner__actions">
+      <a href={withBase('/contact/')} class="btn btn--primary">お問い合わせ</a>
+      <a href={SITE.telHref} class="btn btn--outline">{SITE.tel}</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta-banner {
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+  }
+
+  .cta-banner__inner {
+    padding-block: var(--space-xl);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .cta-banner h2 {
+    color: var(--color-on-accent);
+    margin-bottom: var(--space-2xs);
+  }
+
+  .cta-banner p {
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0;
+  }
+
+  .cta-banner__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+  }
+
+  .cta-banner .btn--outline {
+    border-color: rgba(255, 255, 255, 0.6);
+    color: var(--color-on-accent);
+  }
+
+  .cta-banner .btn--outline:hover {
+    background: var(--color-on-accent);
+    color: var(--color-accent);
+  }
+
+  @media (min-width: 1024px) {
+    .cta-banner__inner {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+</style>

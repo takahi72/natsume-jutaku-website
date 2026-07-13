@@ -1,0 +1,19 @@
+---
+interface Props {
+  minColumnWidth?: string;
+}
+
+const { minColumnWidth = '280px' } = Astro.props;
+---
+
+<div class="card-grid" style={`--min-col: ${minColumnWidth}`}>
+  <slot />
+</div>
+
+<style>
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(var(--min-col), 1fr));
+    gap: var(--space-md);
+  }
+</style>

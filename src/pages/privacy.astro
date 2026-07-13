@@ -1,0 +1,65 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import { SITE } from '../lib/site';
+---
+
+<BaseLayout
+  title="プライバシーポリシー"
+  description={`${SITE.name}のプライバシーポリシー(個人情報の取り扱いについて)です。`}
+  breadcrumbs={[
+    { name: 'トップ', path: '/' },
+    { name: 'プライバシーポリシー', path: '/privacy/' },
+  ]}
+>
+  <header class="page-header">
+    <div class="container">
+      <SectionHeading eyebrow="Privacy Policy" title="プライバシーポリシー" as="h1" />
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container container--narrow policy">
+      <p>
+        {SITE.name}(以下「当社」)は、お客様の個人情報の重要性を認識し、以下のとおりプライバシーポリシーを定め、個人情報の保護に努めます。
+      </p>
+
+      <h2>1. 取得する情報</h2>
+      <p>
+        当社は、お問い合わせフォームを通じて、お名前・メールアドレス・電話番号・お問い合わせ内容などの個人情報を取得します。
+      </p>
+
+      <h2>2. 利用目的</h2>
+      <p>取得した個人情報は、お問い合わせへの回答、資料の送付、家づくりに関するご案内の目的にのみ利用します。</p>
+
+      <h2>3. 第三者提供</h2>
+      <p>
+        法令に基づく場合を除き、ご本人の同意なく個人情報を第三者に提供することはありません。
+      </p>
+
+      <h2>4. フォーム送信サービスの利用について</h2>
+      <p>
+        当サイトのお問い合わせフォームは、外部サービス「Formspree」を利用して送信内容を受信しています。送信いただいた内容はFormspree社のサーバーを経由して当社に届きます。
+      </p>
+
+      <h2>5. お問い合わせ</h2>
+      <p>個人情報の取り扱いに関するお問い合わせは、下記までご連絡ください。</p>
+      <p>
+        {SITE.name}<br />
+        Eメール: {SITE.email}<br />
+        電話番号: {SITE.tel}
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-header {
+    padding-top: var(--space-lg);
+  }
+
+  .policy h2 {
+    font-size: var(--fs-lg);
+    margin-top: var(--space-lg);
+  }
+</style>

@@ -1,0 +1,163 @@
+---
+import { getCollection, render } from 'astro:content';
+import { Image } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CardGrid from '../../components/CardGrid.astro';
+import CaseStudyCard from '../../components/CaseStudyCard.astro';
+import CtaBanner from '../../components/CtaBanner.astro';
+import { SITE } from '../../lib/site';
+
+export async function getStaticPaths() {
+  const caseStudies = await getCollection('case-studies');
+  return caseStudies.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { title, location, completedYear, structure, floorArea, summary, coverImage, coverAlt, gallery } = entry.data;
+const { Content } = await render(entry);
+
+const otherCaseStudies = (await getCollection('case-studies'))
+  .filter((item) => item.id !== entry.id)
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, 3);
+
+const facts = [
+  { label: '所在地', value: location },
+  { label: '構造', value: structure },
+  { label: '延床面積', value: floorArea },
+  { label: '完成年', value: `${completedYear}年` },
+];
+---
+
+<BaseLayout
+  title={title}
+  description={summary}
+  breadcrumbs={[
+    { name: 'トップ', path: '/' },
+    { name: '施工事例', path: '/works/' },
+    { name: title, path: `/works/${entry.id}/` },
+  ]}
+>
+  <article class="case-detail section">
+    <div class="container container--narrow">
+      <h1>{title}</h1>
+      <p class="lead">{summary}</p>
+    </div>
+
+    <div class="container case-detail__cover">
+      <Image src={coverImage} alt={coverAlt} width={1200} height={800} />
+    </div>
+
+    <div class="container container--narrow">
+      <dl class="facts">
+        {
+          facts.map((fact) => (
+            <div class="facts__item">
+              <dt>{fact.label}</dt>
+              <dd>{fact.value}</dd>
+            </div>
+          ))
+        }
+      </dl>
+
+      <div class="case-detail__body">
+        <Content />
+      </div>
+    </div>
+
+    {
+      gallery.length > 0 && (
+        <div class="container">
+          <h2 class="gallery-heading">ギャラリー</h2>
+          <div class="gallery">
+            {gallery.map((item) => (
+              <Image src={item.image} alt={item.alt} width={640} height={420} loading="lazy" />
+            ))}
+          </div>
+        </div>
+      )
+    }
+  </article>
+
+  {
+    otherCaseStudies.length > 0 && (
+      <section class="section section--alt">
+        <div class="container">
+          <h2>他の施工事例</h2>
+          <CardGrid>
+            {otherCaseStudies.map((item) => (
+              <CaseStudyCard entry={item} />
+            ))}
+          </CardGrid>
+        </div>
+      </section>
+    )
+  }
+
+  <CtaBanner />
+</BaseLayout>
+
+<style>
+  .case-detail__cover {
+    margin-block: var(--space-lg);
+  }
+
+  .case-detail__cover :global(img) {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+    border-radius: var(--radius-md);
+  }
+
+  .facts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: var(--space-sm);
+    padding: var(--space-md);
+    background: var(--color-bg-alt);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-lg);
+  }
+
+  .facts__item dt {
+    font-size: var(--fs-xs);
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-3xs);
+  }
+
+  .facts__item dd {
+    margin: 0;
+    font-weight: 700;
+  }
+
+  .case-detail__body {
+    margin-bottom: var(--space-lg);
+  }
+
+  .case-detail__body :global(h2) {
+    font-size: var(--fs-lg);
+  }
+
+  .gallery-heading {
+    margin-bottom: var(--space-md);
+  }
+
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: var(--space-sm);
+    margin-bottom: var(--space-lg);
+  }
+
+  .gallery :global(img) {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: var(--radius-md);
+  }
+</style>

@@ -1,0 +1,79 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import ContactForm from '../components/ContactForm.astro';
+import { SITE } from '../lib/site';
+---
+
+<BaseLayout
+  title="お問い合わせ"
+  description={`${SITE.name}へのお問い合わせはこちらから。資料請求・家づくりのご相談などお気軽にどうぞ。`}
+  breadcrumbs={[
+    { name: 'トップ', path: '/' },
+    { name: 'お問い合わせ', path: '/contact/' },
+  ]}
+>
+  <header class="page-header">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Contact"
+        title="お問い合わせ"
+        as="h1"
+        lead="資料請求・家づくりのご相談など、お気軽にお問い合わせください。"
+      />
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container contact-grid">
+      <ContactForm />
+      <aside class="contact-direct">
+        <h2>お電話でのお問い合わせ</h2>
+        <p class="contact-direct__tel"><a href={SITE.telHref}>{SITE.tel}</a></p>
+        <p>{SITE.businessHours}(定休日: {SITE.closedDays})</p>
+        <h2>メールでのお問い合わせ</h2>
+        <p><a href={`mailto:${SITE.email}`}>{SITE.email}</a></p>
+      </aside>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-header {
+    padding-top: var(--space-lg);
+  }
+
+  .contact-grid {
+    display: grid;
+    gap: var(--space-xl);
+  }
+
+  .contact-direct {
+    padding: var(--space-md);
+    background: var(--color-bg-alt);
+    border-radius: var(--radius-md);
+    height: fit-content;
+  }
+
+  .contact-direct h2 {
+    font-size: var(--fs-md);
+    margin-top: var(--space-md);
+  }
+
+  .contact-direct h2:first-child {
+    margin-top: 0;
+  }
+
+  .contact-direct__tel a {
+    font-size: var(--fs-xl);
+    font-weight: 700;
+    text-decoration: none;
+    color: var(--color-accent);
+  }
+
+  @media (min-width: 1024px) {
+    .contact-grid {
+      grid-template-columns: 1.6fr 1fr;
+    }
+  }
+</style>

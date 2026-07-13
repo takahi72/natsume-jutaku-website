@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-labelledby="t">
+  <title id="t">キッチン写真 準備中</title>
+  <rect width="1600" height="1000" fill="#F1EFE9"/>
+  <rect x="1.5" y="1.5" width="1597" height="997" fill="none" stroke="#E2E0D8" stroke-width="3"/>
+  <g transform="translate(800,420)" stroke="#B9B6AA" stroke-width="6" fill="none" stroke-linejoin="round" stroke-linecap="round">
+    <rect x="-120" y="-60" width="240" height="60" rx="4"/>
+    <path d="M-120,0 V90 H120 V0" />
+    <circle cx="-70" cy="45" r="14"/>
+    <circle cx="0" cy="45" r="14"/>
+  </g>
+  <text x="800" y="565" text-anchor="middle" font-family="'Noto Sans JP', 'Hiragino Sans', sans-serif" font-size="30" fill="#8B8A82" letter-spacing="3">キッチン写真 準備中</text>
+</svg>
